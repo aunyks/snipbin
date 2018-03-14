@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Search the text snippets of any Ethereum address.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@aunyks">
+    <meta name="twitter:title" content="Snipbin">
+    <meta name="twitter:description" content="Search the text snippets of any Ethereum address.">
+    <title>Snipbin - Search</title>
+    <link rel="stylesheet" href="assets/external/bulma.css">
+    <link rel="stylesheet" href="assets/external/jquery-modal.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .hero {
+            background: #ffb400;
+          }
+          .hero-head {
+            background: #000;
+          }
+          h1.title {
+            font-size: 3em;
+            color: white;
+          }
+          h2.subtitle {
+            font-size: 2em;
+            color: white;
+          }
+          #logo {
+            font-size: 1.5em;
+            color: white;
+          }
+          .navbar-item {
+            background: rgba(0, 0, 0, 0.4) !important;
+          }
+          a.navbar-item.is-active {
+            background: #333 !important;
+            color: white;
+          }
+          a.navbar-item:hover {
+            background: #333 !important;
+            color: white;
+          }
+          a.button.is-silent {
+            background: white;
+            color: #ffb400;
+            border-color: transparent;
+          }
+          a.button.is-silent.is-inverted {
+            color: white;
+            background: orange;
+          }
+            .hero-body {
+              text-align: left;
+              background: #ffb400;
+            }
+            #navbarMenuHeroC {
+              background: rgba(0, 0, 0, 0.3);
+            }
+            .navbar-item {
+              color: white;
+            }
+            .navbar-item.is-active {
+              color: white;
+            }
+            #formContainer {
+                background: white;
+                padding: 30px;
+                border-radius: 5px;
+            }
+            .control {
+                color: black;
+            }
+            .input:focus {
+                border-color: black;
+            }
+            input.button.is-link {
+                background: black;
+                color: white;
+            }
+            input.button:hover {
+                background: #667;
+                color: white;
+            }
+            .column {
+                padding: 30px;
+            }
+            </style>
+  </head>
+  <body>
+        <div>
+            <section class="hero is-info is-fullheight">
+                <div class="hero-head">
+                    <header class="navbar">
+                    <div class="container">
+                        <div class="navbar-brand">
+                        <span id="logo" class="navbar-item">
+                            Snipbin
+                        </span>
+                        <span id="hamburger-btn" class="navbar-burger burger" data-target="navbarMenuHeroC">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                        </div>
+                        <div id="navbarMenuHeroC" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a class="navbar-item" href="/">
+                            Home
+                            </a>
+                            <span class="navbar-item">
+                            <a class="button is-silent">
+                                <!--<span class="icon">
+                                <i class="fa fa-github"></i>
+                                </span>-->
+                                <span>Search</span>
+                            </a>
+                            </span>
+                            <span class="navbar-item">
+                            <a class="button is-silent is-inverted" href="/edit">
+                                <!--<span class="icon">
+                                <i class="fa fa-github"></i>
+                                </span>-->
+                                <span>Create / Edit</span>
+                            </a>
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+                    </header>
+                </div>
+                <div class="hero-body">
+                    <div class="container">
+                        <div class="columns is-desktop">
+                            <div class="column">
+                                <h1 class="title">Search</h1>
+                                <h2 class="subtitle">View the snippet of an Ethereum address.</h2>
+                            </div>
+                            <div id="formContainer" class="column">
+                                <form id="searchForm">
+                                    <div class="field">
+                                        <label class="label is-large">Address</label>
+                                        <label class="label is-small">Type or paste an address to see that account's text snippet!</label>
+                                        <div class="control has-icons-left">
+                                            <input id="searchAddress" class="input" type="text" placeholder="E.g.: 0x0000000000000000000000000000000000000000">
+                                            <span class="icon is-small is-left">
+                                                <i class="fa fa-money"></i>
+                                            </span>
+                                        </div>
+                                        <p id="searchWarning" class="help is-danger" style="display: none;">That doesn't look like an Ethereum address.</p>
+                                    </div>
+                                    <div class="field is-grouped">
+                                        <div id="searchSubmitBtn" class="control">
+                                            <input type="submit" class="button is-link">
+                                        </div>
+                                        <div id="searchCancelBtn" class="control">
+                                            <button class="button is-text">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="column"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="assets/external/jquery.js" type="text/javascript"></script>
+        <script>
+            alert = function(msg){
+                $('#modal').text(msg).modal();
+            };
+            window.onload = function(){
+                let menuActive = false;
+                $('#hamburger-btn').click(function(){
+                    if(menuActive){
+                        $('#navbarMenuHeroC').attr('class', 'nav-right navbar-menu');
+                        menuActive = !menuActive;
+                    }else{
+                        $('#navbarMenuHeroC').attr('class', 'nav-right navbar-menu is-active');
+                        menuActive = !menuActive;
+                    }
+                });
+                function isValidAddress (addr) {
+                    return addr.trim().substring(0, 2) === '0x' && addr.length === 42;
+                }
+                document.getElementById('searchAddress').addEventListener('keyup', function () {
+                    let searchInput = document.getElementById('searchAddress')
+                    let searchWarning = document.getElementById('searchWarning')
+                    searchWarning.style.display = isValidAddress(searchInput.value) ? 'none' : 'inline'
+                })
+                document.getElementById('searchForm').onsubmit = function (e) {
+                    if (
+                        isValidAddress(document.getElementById('searchAddress').value)
+                    ) {
+                    e.preventDefault()
+                    window.location = window.location.origin + '/' + document.getElementById('searchAddress').value.trim()
+                    } else {
+                    return false
+                    }
+                }
+            };
+        </script>
+  </body>
+</html>

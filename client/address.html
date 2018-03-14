@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="description" content="The text snippet created by {{ ETH_ADDR }}.">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@aunyks">
+        <meta name="twitter:title" content="Snipbin">
+        <meta name="twitter:description" content="The text snippet created by {{ ETH_ADDR }}.">
+        <title>Snipbin - {{ ETH_ADDR }}</title>
+        <link rel="stylesheet" href="assets/external/bulma.css">
+        <link rel="stylesheet" href="assets/external/jquery-modal.css">
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                overflow-x: hidden;
+                overflow-y: scroll;
+            }
+            .hero {
+                background: #ffb400;
+              }
+              .navbar {
+                background: #000;
+              }
+              h1.title {
+                font-size: 3em;
+                color: white;
+              }
+              h2.subtitle {
+                font-size: 2em;
+                color: white;
+              }
+              #logo {
+                font-size: 1.5em;
+                color: white;
+              }
+              .navbar-item {
+                background: rgba(0, 0, 0, 0.4) !important;
+              }
+              a.navbar-item.is-active {
+                background: #333 !important;
+                color: white;
+              }
+              a.navbar-item:hover {
+                background: #333 !important;
+                color: white;
+              }
+              a.button.is-silent {
+                background: white;
+                color: #ffb400;
+                border-color: transparent;
+              }
+              a.button.is-silent.is-inverted {
+                color: white;
+                background: orange;
+              }
+            #centerColumn {
+                padding-left: 5em;
+                padding-right: 5em;
+                padding-top: 7.5em;
+            }
+            #address {
+                text-align: center;
+                font-size: 1.5em;
+                overflow-x: hidden; 
+                text-overflow:ellipsis;
+            }
+            h2 {
+                font-size: 2.25em;
+            }
+            #description {
+                font-size: 1.6em;
+                text-align: left;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a id="logo" class="navbar-item" href="/">
+                Snipbin
+                </a>
+            </div>
+        </nav>
+        <div id="container">
+            <div class="columns">
+                <div class="column"></div>
+                <div id="centerColumn" class="column">
+                    <div class="columns">
+                        <div class="column"></div>
+                        <div id="qrInject" class="column"></div>
+                        <div class="column"></div>
+                    </div>
+                    <h1 id="address"></h1>
+                    <h2>Snippet</h2>
+                    <hr>
+                    <p id="description"></p>
+                </div>
+                <div class="column"></div>
+            </div>
+            <div id="modal" class="modal">
+                <p></p>
+            </div>
+        </div>
+        <script src="assets/external/jquery.js" type="text/javascript"></script>
+        <script src="assets/external/qrcode.js" type="text/javascript"></script>
+        <script src="assets/external/jquery-modal.js" type="text/javascript"></script>
+        <script>
+            alert = function(msg){
+                $('#modal').text(msg).modal();
+            };
+            function generateQr(idText, addr){
+                new QRCode(document.getElementById(idText), addr);
+            }
+            function fillAddr(addr){
+                $('#address').text(addr);
+            }
+            function gotAddr(addr){
+                generateQr('qrInject', addr);
+                fillAddr(addr);
+            }
+            function initWeb3(FALLBACK_URL){
+                if (typeof web3 !== 'undefined') {
+                    // Use Mist/MetaMask's provider
+                    window.web3 = new Web3(web3.currentProvider); 
+                    if(web3.currentProvider.isMetaMask === true) { 
+                        if(typeof web3.eth.defaultAccount === 'undefined') {
+                            alert('Uh oh! Looks like your browser doesn\'t support Ethereum DApps. Try setting a default account.');
+                        }
+                    }
+                } else {
+                    alert('Unable to detect web3! Please use Google Chrome with MetaMask plugin or an Ethereum Browser.');
+                    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+                    window.web3 = new Web3(new Web3.providers.HttpProvider(FALLBACK_URL));
+                    window.location = window.location.origin + '/'
+                }
+            }
+            window.onload = function(){
+                $('#description').text('There is no snippet here!');
+                let addr = '{{ ETH_ADDR }}';
+                const fallBackUrl = 'https://mainnet.infura.io/4fNi6qszlEVGPlzGtcwy';
+                const contractAddress = '0x7dB065361C2956b9bC21d5199F7c7010e6Dc964D';
+                const contractAbi = 
+                [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "getSnippet",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amtWei",
+				"type": "uint256"
+			}
+		],
+		"name": "setMinimum",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "snippet",
+				"type": "string"
+			}
+		],
+		"name": "editSnippet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	}
+];
+                setTimeout(function(){
+                    // Configure web3 provider
+                    initWeb3(fallBackUrl);
+                    // Bind to contract at address
+                    var accrueContract = web3.eth.contract(contractAbi).at(contractAddress);
+                    accrueContract
+                        .getSnippet
+                        .call(web3.eth.defaultAccount, {
+                            gasLimit: '200000000'
+                        }, undefined, function(err, snippet){
+                            if(!err){
+                                $('#description').text(snippet);
+                            }
+                        });
+                    // Depending on user action, read or write from blockchain
+                }, 1000);
+                gotAddr(addr);
+            };
+        </script>
+    </body>
+</html>

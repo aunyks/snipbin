@@ -1,0 +1,17 @@
+{
+  "name": "accrue",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node snipbin.js"
+  },
+  "author": "Gerald Nash",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "express": "^4.16.2",
+    "ganache-cli": "^6.0.3",
+    "redbird": "^0.7.0"
+  }
+}

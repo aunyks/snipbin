@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Create, Edit, and Read Text Snippets on the Blockchain!">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@aunyks">
+    <meta name="twitter:title" content="Snipbin">
+    <meta name="twitter:description" content="Create, Edit, and Read Text Snippets on the Blockchain!">
+    <title>Snipbin - Create, Edit, and Read Text Snippets on the Blockchain!</title>
+    <link rel="stylesheet" href="assets/external/bulma.css">
+    <style>
+        .hero {
+          background: #ffb400;
+        }
+        .hero-head {
+          background: #000;
+        }
+        h1.title {
+          font-size: 3em;
+          color: white;
+        }
+        h2.subtitle {
+          font-size: 2em;
+          color: white;
+        }
+        #logo {
+          font-size: 1.5em;
+          color: white;
+        }
+        .navbar-item {
+          background: rgba(0, 0, 0, 0.4) !important;
+        }
+        #hamburger-btn {
+          color: white;
+        }
+        a.navbar-item.is-active {
+          background: #333 !important;
+          color: white;
+        }
+        a.navbar-item:hover {
+          background: #333 !important;
+          color: white;
+        }
+        a.button.is-silent {
+          background: white;
+          color: #ffb400;
+          border-color: transparent;
+        }
+        a.button.is-silent.is-inverted {
+          color: white;
+          background: orange;
+        }
+        .hero-body {
+          text-align: left;
+        }
+        #navbarMenuHeroC {
+          background: rgba(0, 0, 0, 0.3);
+        }
+        .navbar-item {
+          color: white;
+        }
+        .navbar-item.is-active {
+          color: white;
+        }
+        .homepage-body {
+          padding: 2%;
+        }
+        .is-flat-elevated {
+          color: black;
+        }
+        footer {
+          padding: 1.5rem;
+        }
+        </style>
+  </head>
+  <body>
+      <div>
+          <section class="hero is-fullheight">
+            <div class="hero-head">
+              <header class="navbar">
+                <div class="container">
+                  <div class="navbar-brand">
+                    <span id="logo" class="navbar-item">
+                      Snipbin
+                    </span>
+                    <span id="hamburger-btn" class="navbar-burger burger" data-target="navbarMenuHeroC">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </span>
+                  </div>
+                  <div id="navbarMenuHeroC" class="navbar-menu">
+                    <div class="navbar-end">
+                      <a class="navbar-item is-active">
+                        Home
+                      </a>
+                      <span class="navbar-item">
+                        <a class="button is-silent" href="/search">
+                          <!--<span class="icon">
+                            <i class="fa fa-github"></i>
+                          </span>-->
+                          <span>Search</span>
+                        </a>
+                      </span>
+                      <span class="navbar-item">
+                        <a class="button is-silent is-inverted" href="/edit">
+                          <!--<span class="icon">
+                            <i class="fa fa-github"></i>
+                          </span>-->
+                          <span>Create / Edit</span>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </header>
+            </div>
+          
+            <!-- Hero content: will be in the middle -->
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                  Snipbin
+                </h1>
+                <h2 class="subtitle">
+                  Text snippets, unchangeable.
+                </h2>
+              </div>
+            </div>
+          </section>
+            <div class="homepage-body">
+              <nav class="level is-desktop">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Why use it</p>
+                    <p class="title">Store Information</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Price to Pay</p>
+                    <p class="title">0.0005 ETH (< $0.50 USD)</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Time to Start</p>
+                    <p class="title">< 1 minute</p>
+                  </div>
+                </div>
+              </nav>
+              <hr />
+              <br />
+              <div class="tile is-ancestor">
+                <div class="tile is-vertical is-8">
+                  <div class="tile">
+                    <div class="tile is-parent is-vertical">
+                      <article class="tile is-child notification is-flat-elevated">
+                       <p class="title">Immutable</p>
+                        <p class="subtitle">Although you can make as many changes as you want, snippet history is never deleted.</p>
+                      </article>
+                      <article class="tile is-child notification is-flat-elevated">
+                        <p class="title">Your Information, Undamaged</p>
+                        <p class="subtitle">Rest assured that Snipbin's blockchain backend makes it nearly impossible for someone else to edit your snippets.</p>
+                      </article>
+                    </div>
+                    <div class="tile is-parent">
+                      <article class="tile is-child notification is-flat-elevated">
+                        <p class="title">Your Snippets are Yours</p>
+                        <p class="subtitle">
+                          Each Ethereum address can have one snippet at a time.
+                        </p>
+                        <br>
+                        <p class="subtitle">
+                          You can share your snipbin.co/[address] link with anyone so that they can see your snippets! Each one is public.
+                        </p>
+                      </article>
+                    </div>
+                  </div>
+                  <div class="tile is-parent">
+                    <article class="tile is-child notification is-flat-elevated">
+                      <p class="title">Don't Worry</p>
+                      <p class="subtitle">Trying to send a message to a friend? Snipbin snippets are very secure from attack.</p>
+                      <div class="content">
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="tile is-parent">
+                  <article class="tile is-child notification is-flat-elevated">
+                    <div class="content">
+                      <p class="title">Collect Funds</p>
+                      <p class="subtitle">
+                        Just send somebody your Snipbin link and your address will appear alongside your snippets. This lets anybody tip you for your snippets if they choose!
+                      </p>
+                      <br>
+                      <p class="title">Get Started Now:</p>
+                      <p class="subtitle">
+                        <ol>
+                          <li>Make sure you're in a Web3 enabled browser like <a href="https://metamask.io/" target="_blank">Chrome with MetaMask</a>, <a href="https://brave.com/" target="_blank">Brave</a>, or <a href="https://github.com/ethereum/mist/releases" target="_blank">Mist</a>.</li>
+                          <li>Click the "Create / Edit" button at the top of the page or go to <a href="/edit">snipbin.co/edit</a>.</li>
+                          <li>Type what you want to be in your text snippet.</li>
+                          <li>Save your snippet by clicking the "Submit" button and paying the transaction fee.</li>
+                          <li>When the transaction is confirmed, go to snipbin.co/[your address] and check out your snippet!</li>
+                        </ol>
+                      </p>
+                      <div class="content">
+                        <!-- Content -->
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+            <footer class="footer">
+              <div class="container">
+                <div class="content has-text-centered">
+                  <p>
+                    <strong>Snipbin</strong> was created with love by <a href="http://aunyks.com">Gerald Nash</a>.
+                  </p>
+                </div>
+              </div>
+            </footer>
+          </div>
+          <script src="assets/external/jquery.js" type="text/javascript"></script>
+          <script>
+            window.onload = function(){
+              let menuActive = false;
+              $('#hamburger-btn').click(function(){
+                if(menuActive){
+                    $('#navbarMenuHeroC').attr('class', 'nav-right navbar-menu');
+                    menuActive = !menuActive;
+                }else{
+                    $('#navbarMenuHeroC').attr('class', 'nav-right navbar-menu is-active');
+                    menuActive = !menuActive;
+                }
+              });
+            };
+          </script>
+  </body>
+</html>
